@@ -1,0 +1,29 @@
+services:
+  logging-service:
+    build: ./logging-service
+    container_name: logging-service
+    environment:
+      - PORT=3001
+    ports:
+      - "3001:3001"
+
+  counter-service:
+    build: ./counter-service
+    container_name: counter-service
+    environment:
+      - PORT=3002
+    ports:
+      - "3002:3002"
+
+  facade-service:
+    build: ./facade-service
+    container_name: facade-service
+    environment:
+      - PORT=3000
+      - LOGGING_URL=http://logging-service:3001
+      - COUNTER_URL=http://counter-service:3002
+    ports:
+      - "3000:3000"
+    depends_on:
+      - logging-service
+      - counter-service
