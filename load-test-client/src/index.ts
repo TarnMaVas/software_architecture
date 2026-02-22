@@ -213,10 +213,10 @@ async function runScenario(
   console.log(`Requests per second: ${requestsPerSecond.toFixed(2)} req/s`);
   console.log("\nService timing breakdown:");
   console.log(
-    `  Logging service: ${(metrics.logging.timeMS * 1000).toFixed(2)} s (${metrics.logging.calls} calls, avg: ${metrics.logging.averageMs.toFixed(2)} ms)`,
+    `  Logging service: ${(metrics.logging.timeMS / 1000).toFixed(2)} s (total time for all workers, ${metrics.logging.calls} calls, avg: ${metrics.logging.averageMs.toFixed(2)} ms)`,
   );
   console.log(
-    `  Counter service: ${(metrics.counter.timeMS * 1000).toFixed(2)} s (${metrics.counter.calls} calls, avg: ${metrics.counter.averageMs.toFixed(2)} ms)`,
+    `  Counter service: ${(metrics.counter.timeMS / 1000).toFixed(2)} s (total time for all workers, ${metrics.counter.calls} calls, avg: ${metrics.counter.averageMs.toFixed(2)} ms)`,
   );
   const totalServiceTime = metrics.logging.timeMS + metrics.counter.timeMS;
   if (totalServiceTime > 0) {
